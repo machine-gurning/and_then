@@ -1,0 +1,26 @@
+{
+  "name": "and_then",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/machine-gurning/and_then.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/machine-gurning/and_then/issues"
+  },
+  "homepage": "https://github.com/machine-gurning/and_then#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.0.5",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {},
+  "description": ""
+}

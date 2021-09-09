@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://kit.fontawesome.com/05515a6ad9.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body onload="display_ct(), placeTimeBar()">
+    <div class="page-container">
+      <div class="banner">
+        <div class="banner-title">Title</div>
+      </div>
+      <div class="body-container">
+        <div class="scrollable-left-wrapper">
+          <div class="left-container">
+            <div class="column-container">
+              <div class="date">Today</div>
+
+              <div class="outer-block-container">
+                <div class="time-bar"></div>
+                <div class="inner-block-container">
+                  <div class="block-and-menu-container">
+                    <div class="block" id="wastingTimeBlock"></div>
+                  </div>
+
+                  <div class="spacer" id="spacer1"></div>
+
+                  <div class="block-and-menu-container">
+                    <div class="block" id="pianoBlock"></div>
+                  </div>
+                  <div class="spacer" id="spacer2"></div>
+                  <div class="block-and-menu-container">
+                    <div class="block" id="readingBlock"></div>
+                  </div>
+                  <div class="spacer" id="spacer3"></div>
+                  <div class="block-and-menu-container">
+                    <div class="block" id="pianoBlock2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column-container">
+              <div class="date">Yesterday</div>
+            </div>
+            <div class="column-container"><div class="date">Aug 23</div></div>
+            <div class="column-container">
+              <div class="date">Augs 22</div>
+            </div>
+            <div class="column-container">
+              <div class="date">Agus 21</div>
+            </div>
+            <div class="column-container"><div class="date">Aug 20</div></div>
+          </div>
+        </div>
+        <div class="right-container">
+          <div id="LiveTime"></div>
+          <div class="settings-container">
+            <div class="settings settings-container-category">Categorryy</div>
+            <div class="settings-container-times">
+              <div class="settings settings-container-start-time">9:13AM</div>
+              <div class="settings settings-container-end-time">9:15AM</div>
+            </div>
+            <div class="settings-container-buttons">
+              <div class="settings settings-container-update-button">
+                Update
+              </div>
+              <div class="settings settings-container-delete-button">
+                Delete
+              </div>
+            </div>
+          </div>
+
+          <div class="right-container-timing-category-box">
+            <div class="category" id="wastingTime">
+              <div class="category-title">Wasting time</div>
+              <div class="category-time">00:00:00</div>
+            </div>
+            <div class="category" id="work">
+              <div class="category-title">Work</div>
+              <div class="category-time">00:00:00</div>
+            </div>
+            <div class="category" id="programming">
+              <div class="category-title">Programming</div>
+              <div class="category-time">00:00:00</div>
+            </div>
+            <div class="category" id="piano">
+              <div class="category-title">Piano</div>
+              <div class="category-time">00:00:00</div>
+            </div>
+            <div class="category" id="reading">
+              <div class="category-title">Reading</div>
+              <div class="category-time">00:00:00</div>
+            </div>
+            <div class="category" id="painting">
+              <div class="category-title">Painting</div>
+              <div class="category-time">00:00:00</div>
+            </div>
+            <div class="category" id="writing">
+              <div class="category-title">Writing</div>
+              <div class="category-time">00:00:00</div>
+            </div>
+            <div class="category-plus-button">
+              <div class="plus-button">+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer"></div>
+    </div>
+    <script src="./clock.js"></script>
+    <script src="./timer.js"></script>
+    <script src="./resizer.js"></script>
+  </body>
+</html>
