@@ -73,14 +73,15 @@ body {
 .outer-block-container {
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .time-bar {
   position: absolute;
   width: 150px;
   height: 3px;
-  background-color: red;
-  top: 120px;
+  background-color: blue;
+  top: 130px;
 }
 
 .inner-block-container {
@@ -89,6 +90,7 @@ body {
 
 .block {
   width: 150px;
+  position: absolute;
 }
 
 .cat1-block {
@@ -191,6 +193,7 @@ body {
   overflow: scroll;
   font-size: 20px;
   font-family: "Heebo";
+  scrollbar-width: none;
 }
 
 .right-container-timing-category-box::-webkit-scrollbar,

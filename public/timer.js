@@ -32,12 +32,13 @@ function timerControl(category) {
   clickedCategory = category.id;
 
   // Creating variables for the selected category and currently running category
-
-  var clickedParent = document.querySelector("#" + category.id);
-  var clickedMessage = clickedParent.querySelector(".category-time");
+  var clickedMessage = document
+    .querySelector("#" + category.id)
+    .querySelector(".category-time");
   if (runningCategory != "noRunningCategory") {
-    var runningParent = document.querySelector("#" + runningCategory);
-    var runningMessage = runningParent.querySelector(".category-time");
+    var runningMessage = document
+      .querySelector("#" + runningCategory)
+      .querySelector(".category-time");
   }
 
   if (runningCategory === "noRunningCategory") {
@@ -191,11 +192,11 @@ function reset() {
 
 // Request function
 
-const urlsecret = "api/v1/timeblocks";
+const URL = "api/v1/timeblocks";
 
 function postNewTimeblockToServer(category, startTime, endTime, elapsedTime) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", urlsecret, true);
+  xhr.open("POST", URL);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(
     JSON.stringify({
@@ -206,3 +207,288 @@ function postNewTimeblockToServer(category, startTime, endTime, elapsedTime) {
     })
   );
 }
+
+var allData;
+
+async function getAndExpandTimeblocks(URL) {
+  // Get timeblocks
+  const data = await fetch(URL);
+  allData = await data.json();
+
+  var startTimes = [];
+
+  // Expand start and end times
+  allData.map((item) => {
+    startTimeDateObject = new Date(item.startTime);
+    endTimeDateObject = new Date(item.endTime);
+
+    item.startYear = startTimeDateObject.getFullYear();
+    item.startMonth = startTimeDateObject.getMonth();
+    item.startDay = startTimeDateObject.getDate();
+    item.startHour = startTimeDateObject.getHours();
+    item.startMinute = startTimeDateObject.getMinutes();
+    item.startSecond = startTimeDateObject.getSeconds();
+
+    item.endYear = endTimeDateObject.getFullYear();
+    item.endMonth = endTimeDateObject.getMonth();
+    item.endDay = endTimeDateObject.getDate();
+    item.endHour = endTimeDateObject.getHours();
+    item.endMinute = endTimeDateObject.getMinutes();
+    item.endSecond = endTimeDateObject.getSeconds();
+
+    // Check for multi-day blocks
+    if (item.startDay !== item.endDay) {
+      item.multiday = true;
+    } else {
+      item.multiday = true;
+    }
+    //TODO: figure this out
+
+    // Add "percentage through day" for start and end
+    // TODO: change according to limits of the day
+    item.startPercentage =
+      item.startHour / 24 +
+      item.startMinute / 24 / 60 +
+      item.startSecond / 24 / 60 / 60;
+
+    item.endPercentage =
+      item.endHour / 24 +
+      item.endMinute / 24 / 60 +
+      item.endSecond / 24 / 60 / 60;
+
+    item.elapsedPercentage = item.endPercentage - item.startPercentage;
+
+    item.elapsedPercentageRounded =
+      Math.round(item.elapsedPercentage * 1000000) / 1000000;
+    item.startPercentageRounded =
+      Math.round(item.startPercentage * 1000000) / 1000000;
+    item.endPercentageRounded =
+      Math.round(item.endPercentage * 1000000) / 1000000;
+
+    // This will be matched with the ID of the column in the UI
+    item.columnIdString =
+      String(item.startYear) +
+      "-" +
+      String(item.startMonth) +
+      "-" +
+      String(item.startDay);
+
+    startTimes.push(new Date(item.startTime));
+  });
+
+  // Find earliest time
+
+  var minTime = new Date(Math.min.apply(null, startTimes));
+
+  console.log(allData);
+
+  // Construct list of dates between earliest and today
+
+  datesList = [];
+
+  var maxTime = new Date();
+  var minTimeYear = minTime.getFullYear();
+  var minTimeMonth = minTime.getMonth();
+  var minTimeDay = minTime.getDate();
+
+  for (
+    var d = new Date(minTimeYear, minTimeMonth, minTimeDay);
+    d <= maxTime;
+    d.setDate(d.getDate() + 1)
+  ) {
+    datesList.push(new Date(d));
+  }
+
+  // Reverse the order
+  datesList.reverse();
+
+  var columnHTML = "";
+  // Build empty columns for each date
+  for (let i in datesList) {
+    columnHTML += buildDateColumnHTML(datesList[i]);
+  }
+  document.querySelector(".left-container").innerHTML = columnHTML;
+  console.log(document.querySelector(".left-container"));
+
+  // Add the timebar to today's column
+  var timebarHTML = `<div class="time-bar"></div> <div class="inner-block-container">
+  </div>`;
+
+  document.querySelector(".outer-block-container").innerHTML = timebarHTML;
+  console.log(document.querySelector(".outer-block-container").innerHTML);
+  // Populate each column with their timeblocks
+
+  for (let i in allData) {
+    // Establish all attributes which will be inserted into timeblock
+    var databaseId = allData[i]._id;
+    var id = allData[i].columnIdString;
+    var categoryName = allData[i].category;
+    var startPercentage = allData[i].startPercentageRounded;
+    var endPercentage = allData[i].endPercentageRounded;
+    var elapsedPercentage = allData[i].elapsedPercentageRounded;
+
+    // Create HTML of block
+    // TODO fix this asynchronos BS here
+    var blockHTML =
+      `<div class="block" category="` +
+      String(categoryName) +
+      `" startPercentage="` +
+      String(startPercentage) +
+      `" endPercentage="` +
+      String(endPercentage) +
+      `" elapsedPercentage="` +
+      String(elapsedPercentage) +
+      `" id="` +
+      String(databaseId) +
+      `"></div>`;
+    // Append the block in the correct day's container
+    document
+      .getElementById(String(id))
+      .querySelector(".outer-block-container")
+      .querySelector(".inner-block-container").innerHTML += blockHTML;
+  }
+
+  return allData;
+}
+
+// Takes a Date object and returns the HTML for that date column
+const buildDateColumnHTML = (date) => {
+  // Make day ID
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  const idString = String(year) + "-" + String(month) + "-" + String(day);
+
+  // Make day title
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const monthString = monthNames[month];
+  const dayTitleString = String(monthString) + " " + String(day);
+
+  const columnHTMLString =
+    `<div class="column-container" id = "` +
+    idString +
+    `">
+              <div class="date">` +
+    dayTitleString +
+    `</div>
+              <div class="outer-block-container">
+                <div class="inner-block-container">
+                </div>
+              </div>
+            </div>`;
+  return columnHTMLString;
+};
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+////////////////////////// R E S I Z E R ////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Timer to avoid too many calls
+var globalResizeTimer = null;
+
+// Function to scale time-bar and blocks
+function scaleEverything() {
+  placeTimeBar();
+  resizeTimeblocks();
+}
+
+// scale everything upon page resize but don't spam it
+window.addEventListener("resize", () => {
+  if (globalResizeTimer != null) window.clearTimeout(globalResizeTimer);
+  globalResizeTimer = window.setTimeout(scaleEverything, 200);
+});
+
+// Function to refresh time-bar location every 20 seconds
+function refreshTimeBar() {
+  var refresh = 20000;
+  myTime = setTimeout("placeTimeBar()", refresh);
+}
+
+function placeTimeBar() {
+  // TODO allow sub-section of day to be displayed, with start and end times
+
+  // 1. Find current portion of day
+  var date = new Date();
+  var currentTimeFraction =
+    date.getHours() / 24 +
+    date.getMinutes() / 60 / 24 +
+    date.getSeconds() / 60 / 60 / 24;
+
+  // 2. Convert into portion of page size
+  var timelineHeight = document.querySelector(
+    ".outer-block-container"
+  ).clientHeight;
+
+  var offsetFromTop = Math.round(timelineHeight * currentTimeFraction);
+
+  // 3. Change "Top" CSS attribute
+  //console.log(offsetFromTop);
+
+  document.querySelector(".time-bar").style.top = offsetFromTop + "px";
+
+  refreshTimeBar();
+}
+
+var timeblocks;
+
+// Function to scale all blocks
+function resizeTimeblocks() {
+  // Find total timeline height
+  var timelineHeight = document.querySelector(
+    ".inner-block-container"
+  ).clientHeight;
+
+  // Find all timeblocks
+  timeblocks = document.querySelectorAll(".block");
+  timeblocks.forEach(
+    // For each, extract start and end percentages, turn them into box height and offset from top
+
+    (p) => {
+      // extract start and elapsed percentages
+      var startPercentage = p.getAttribute("startpercentage");
+      var elapsedPercentage = p.getAttribute("elapsedpercentage");
+
+      // Calculate offset from top
+      var offsetFromTop = Math.round(timelineHeight * startPercentage);
+
+      // Calculate height of block
+      var blockHeight = Math.max(
+        Math.round(timelineHeight * elapsedPercentage),
+        1
+      );
+
+      // Apply CSS changes
+      p.style.top = String(offsetFromTop) + "px";
+      p.style.height = String(blockHeight) + "px";
+      p.style.backgroundColor = "red";
+
+      console.log(offsetFromTop);
+      console.log(blockHeight);
+    }
+  );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+////////////////////////// R E S I Z E R ////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+getAndExpandTimeblocks(URL).then((allData) => resizeTimeblocks());

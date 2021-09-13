@@ -1,10 +1,10 @@
 const Timeblock = require("../models/timeblock");
-const Task = require("../models/timeblock");
 const bodyParser = require("body-parser");
 
-function getAllTimeblocks(req, res) {
-  res.send("aallll yesss annywayy");
-}
+const getAllTimeblocks = async (req, res) => {
+  const allTimeblocks = await Timeblock.find({});
+  res.status(201).json(allTimeblocks);
+};
 
 const createTimeBlock = async (req, res) => {
   const timeblock = await Timeblock.create(req.body);
