@@ -5,6 +5,14 @@ const TimeblockSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  categoryPresentable: {
+    type: String,
+    required: true,
+  },
+  colour: {
+    type: String,
+    required: true,
+  },
   startTime: {
     type: Date,
     required: true,

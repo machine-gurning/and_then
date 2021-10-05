@@ -190,10 +190,12 @@ function reset() {
   elapsedTime = 0;
 }
 
-// Request function
+////////////////////////////////////////////////////////
+//////////////  database functions  ////////////////////
+////////////////////////////////////////////////////////
 
 const URL = "api/v1/timeblocks";
-
+// POST NEW BLOCK TO SERVER
 function postNewTimeblockToServer(category, startTime, endTime, elapsedTime) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", URL);
@@ -208,13 +210,14 @@ function postNewTimeblockToServer(category, startTime, endTime, elapsedTime) {
   );
 }
 
-var allData;
-
 async function getAndExpandTimeblocks(URL) {
   // Get timeblocks
   const data = await fetch(URL);
   allData = await data.json();
+  return allData;
+}
 
+function expandTimeblocks(allData) {
   var startTimes = [];
 
   // Expand start and end times
@@ -280,8 +283,6 @@ async function getAndExpandTimeblocks(URL) {
 
   var minTime = new Date(Math.min.apply(null, startTimes));
 
-  console.log(allData);
-
   // Construct list of dates between earliest and today
 
   datesList = [];
@@ -308,14 +309,12 @@ async function getAndExpandTimeblocks(URL) {
     columnHTML += buildDateColumnHTML(datesList[i]);
   }
   document.querySelector(".left-container").innerHTML = columnHTML;
-  console.log(document.querySelector(".left-container"));
 
   // Add the timebar to today's column
   var timebarHTML = `<div class="time-bar"></div> <div class="inner-block-container">
   </div>`;
 
   document.querySelector(".outer-block-container").innerHTML = timebarHTML;
-  console.log(document.querySelector(".outer-block-container").innerHTML);
   // Populate each column with their timeblocks
 
   for (let i in allData) {
@@ -347,12 +346,10 @@ async function getAndExpandTimeblocks(URL) {
       .querySelector(".outer-block-container")
       .querySelector(".inner-block-container").innerHTML += blockHTML;
   }
-
-  return allData;
 }
 
 // Takes a Date object and returns the HTML for that date column
-const buildDateColumnHTML = (date) => {
+function buildDateColumnHTML(date) {
   // Make day ID
   const year = date.getFullYear();
   const month = date.getMonth();
@@ -392,7 +389,17 @@ const buildDateColumnHTML = (date) => {
               </div>
             </div>`;
   return columnHTMLString;
-};
+}
+
+function findAndUpdate(allData) {}
+
+function calculateAllTimeTotal(allData) {}
+
+getAndExpandTimeblocks(URL).then((allData) => {
+  expandTimeblocks(allData);
+  console.log(allData);
+  resizeTimeblocks();
+});
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -478,17 +485,6 @@ function resizeTimeblocks() {
       p.style.top = String(offsetFromTop) + "px";
       p.style.height = String(blockHeight) + "px";
       p.style.backgroundColor = "red";
-
-      console.log(offsetFromTop);
-      console.log(blockHeight);
     }
   );
 }
-
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-////////////////////////// R E S I Z E R ////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-
-getAndExpandTimeblocks(URL).then((allData) => resizeTimeblocks());

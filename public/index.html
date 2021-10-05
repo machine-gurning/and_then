@@ -4,18 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>And then</title>
     <link rel="stylesheet" href="styles.css" />
+
     <script
       src="https://kit.fontawesome.com/05515a6ad9.js"
       crossorigin="anonymous"
     ></script>
   </head>
-  <body onload="display_ct(), placeTimeBar()">
+  <body>
+    <!-- banner -->
     <div class="page-container">
       <div class="banner">
-        <div class="banner-title">Title</div>
+        <div class="banner-title">And then...</div>
       </div>
+      <!-- timeline area -->
       <div class="body-container">
         <div class="scrollable-left-wrapper">
           <div class="left-container">
@@ -27,75 +30,60 @@
               </div>
             </div>
             <div class="column-container">
-              <div class="date">Yesterday</div>
+              <div class="date">Oct 2</div>
             </div>
             <div class="column-container"><div class="date">Aug 23</div></div>
             <div class="column-container">
-              <div class="date">Augs 22</div>
+              <div class="date">Aug 22</div>
             </div>
             <div class="column-container">
-              <div class="date">Agus 21</div>
+              <div class="date">Aug 21</div>
             </div>
             <div class="column-container"><div class="date">Aug 20</div></div>
           </div>
         </div>
-        <div class="right-container">
-          <div id="LiveTime"></div>
-          <div class="settings-container">
-            <div class="settings settings-container-category">Categorryy</div>
-            <div class="settings-container-times">
-              <div class="settings settings-container-start-time">9:13AM</div>
-              <div class="settings settings-container-end-time">9:15AM</div>
-            </div>
-            <div class="settings-container-buttons">
-              <div class="settings settings-container-update-button">
-                Update
-              </div>
-              <div class="settings settings-container-delete-button">
-                Delete
-              </div>
-            </div>
+        <!-- side-bar area  -->
+        <div class="sidebar-container show">
+          <div class="clock-container sidebar-sub-containers">
+              <div class="live-time">00:00:00</div>
           </div>
+          <div class="settings-container sidebar-sub-containers"></div>
+          <div class="timers-container sidebar-sub-containers">
+            <div class="timers-sub-container">
+              <!-- single timer -->
+              <div class="timer" id="programming">
+                <div class="timer-information">
+                  <div class="timer-title">Piano</div>
+                  <div class="timer-time">00:00:00</div>
+                </div>
+                <div class="timer-button-overlay">
+                  <button class="timer-start-stop-btn">start</button>
+                  <button class="timer-settings-btn">
+                    <i class="fas fa-cog"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="timer" id="wastingTime">
+                <div class="timer-information">
+                  <div class="timer-title">Piano</div>
+                  <div class="timer-time">00:00:00</div>
+                </div>
+                <div class="timer-button-overlay">
+                  <button class="timer-start-stop-btn">start</button>
+                  <button class="timer-settings-btn">
+                    <i class="fas fa-cog"></i>
+                  </button>
+                </div>
+              </div>
 
-          <div class="right-container-timing-category-box">
-            <div class="category" id="wastingTime">
-              <div class="category-title">Wasting time</div>
-              <div class="category-time">00:00:00</div>
-            </div>
-            <div class="category" id="work">
-              <div class="category-title">Work</div>
-              <div class="category-time">00:00:00</div>
-            </div>
-            <div class="category" id="programming">
-              <div class="category-title">Programming</div>
-              <div class="category-time">00:00:00</div>
-            </div>
-            <div class="category" id="piano">
-              <div class="category-title">Piano</div>
-              <div class="category-time">00:00:00</div>
-            </div>
-            <div class="category" id="reading">
-              <div class="category-title">Reading</div>
-              <div class="category-time">00:00:00</div>
-            </div>
-            <div class="category" id="painting">
-              <div class="category-title">Painting</div>
-              <div class="category-time">00:00:00</div>
-            </div>
-            <div class="category" id="writing">
-              <div class="category-title">Writing</div>
-              <div class="category-time">00:00:00</div>
-            </div>
-            <div class="category-plus-button">
-              <div class="plus-button">+</div>
+              </div> 
+              <button class="new-timer-btn">new timer</button>
+
             </div>
           </div>
         </div>
       </div>
-      <div class="footer"></div>
     </div>
-    <script src="./clock.js"></script>
-    <script src="./timer.js"></script>
-    <script src="./resizer.js"></script>
+    <script src="./app.js" type="module"></script>
   </body>
 </html>
