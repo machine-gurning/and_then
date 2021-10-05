@@ -1,4 +1,4 @@
-import { postNewTimeblockToServer } from "../data_functions/getAndPostTimeBlocks.js";
+import { postNewTimeblockToServer } from "../data_functions/postTimeBlocks.js";
 
 var startTime;
 
