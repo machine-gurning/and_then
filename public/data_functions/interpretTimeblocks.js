@@ -13,7 +13,15 @@ For every timeblock, I want
   // Extract information from allData
 
   const expandedData = allData.map((timeblock) => {
-    let { category, elapsedTime, startTime, endTime, _id: id } = timeblock;
+    let {
+      category,
+      elapsedTime,
+      startTime,
+      endTime,
+      _id: id,
+      categoryPresentable,
+      colour,
+    } = timeblock;
     // TODO need to account for something that begins and ends on different days
 
     startTime = new Date(startTime);
@@ -64,6 +72,9 @@ For every timeblock, I want
     return {
       id,
       category,
+      categoryPresentable,
+      colour,
+
       elapsedTime,
       startTime,
       endTime,

@@ -79,11 +79,11 @@ function createDayColumns(expandedData) {
   const datesArray = getDaysArray(new Date(earliestDate), new Date());
 
   // For each of the dates in datesArray, create a column in the UI
-  makeDayColumns(datesArray);
+  makeDayColumnsFromDatesList(datesArray);
 }
 
 // Takes an array of dates. Makes one empty column in the UI for each
-function makeDayColumns(datesArray) {
+function makeDayColumnsFromDatesList(datesArray) {
   // Currently in reverse order, need to reverse it
   const daysHTML = datesArray
     .reverse()
@@ -109,7 +109,10 @@ function getDaysArray(startDateObject, endDateObject) {
     arr.push(new Date(dt));
   }
 
-  arr.push(endDateObject);
+  // Need to fix it when I fix dates. Sometimes it doesn't register the most recent day, so I force it here
+  if (arr[arr.length - 1].getDate() != endDateObject.getDate()) {
+    arr.push(endDateObject);
+  }
   return arr;
 }
 

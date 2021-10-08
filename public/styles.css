@@ -150,7 +150,7 @@ body {
   justify-content: space-between;
   width: 100%;
   height: 35px;
-  background-color: green;
+  background-color: lightgray;
 }
 
 .timer-button-overlay {
