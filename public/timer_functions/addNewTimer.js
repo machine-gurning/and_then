@@ -1,4 +1,5 @@
 import getElement from "../utilities/getElement.js";
+import { showTimerSettingsEventListener } from "./settings.js";
 import startStopEventListener from "./stopwatchController.js";
 
 const newTimerBtn = getElement(".new-timer-btn");
@@ -11,13 +12,13 @@ const addNewTimer = function () {
     
   <div class="temporary-timer-box">
   <input
-    class="new-timer-name"
+    class="new-timer-name standard-settings-font-size-and-type"
     type="text"
     placeholder="Enter timer name"
   />
   <div class="new-timer-buttons-container">
-    <button class="timer-create-btn">Done</button>
-    <button class="timer-cancel-btn">Cancel</button>
+    <button class="timer-create-btn standard-btn standard-settings-font-size-and-type">Done</button>
+    <button class="timer-cancel-btn standard-btn standard-settings-font-size-and-type">Cancel</button>
   </div>
 </div>
   `;
@@ -33,7 +34,7 @@ const addNewTimer = function () {
   timerCreateBtn.addEventListener("click", () => {
     // Extract timer name
     const timerName = getElement(".new-timer-name").value;
-    const timerID = timerName.replace(/\s+/g, "-").toLowerCase();
+    const timerID = makeTimerID(timerName);
 
     // TODO ensure no identical class names -- reject if so
 
@@ -43,22 +44,23 @@ const addNewTimer = function () {
     // Add new timer
     const newTimerHTML = `<div class="timer" id="${timerID}">
       <div class="timer-information">
-        <div class="timer-title">${timerName}</div>
-        <div class="timer-time">00:00:00</div>
+        <div class="timer-title standard-settings-font-size-and-type">${timerName}</div>
+        <div class="timer-time standard-settings-font-size-and-type">00:00:00</div>
       </div>
       <div class="timer-button-overlay">
-        <button class="timer-start-stop-btn">start</button>
-        <button class="timer-settings-btn">
+        <button class="timer-start-stop-btn standard-btn standard-settings-font-size-and-type">start</button>
+        <button class="timer-settings-btn standard-btn standard-settings-font-size-and-type">
           <i class="fas fa-cog"></i>
         </button>
       </div>
     </div>`;
     timerContainer.insertAdjacentHTML("beforeend", newTimerHTML);
 
-    // Add event listener
+    // Add event listeners
     const newTimer = timerContainer.lastElementChild;
     const newTimerButton = newTimer.querySelector(".timer-start-stop-btn");
     startStopEventListener(newTimerButton);
+    showTimerSettingsEventListener(newTimer);
   });
 
   timerCancelBtn.addEventListener("click", () => {
@@ -67,4 +69,10 @@ const addNewTimer = function () {
   });
 };
 
+function makeTimerID(timerTitle) {
+  return timerTitle.replace(/\s+/g, "-").toLowerCase();
+}
+
 newTimerBtn.addEventListener("click", addNewTimer);
+
+export { makeTimerID };

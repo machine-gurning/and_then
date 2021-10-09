@@ -97,8 +97,8 @@ body {
 
 .sidebar-container {
   width: 255px;
-  background-color: lightgreen;
   flex-shrink: 0;
+  border: 1px solid rgb(230, 230, 230);
 }
 
 .sidebar-sub-containers {
@@ -119,13 +119,65 @@ body {
   margin-top: 20px;
 }
 
-.settings-container {
-  height: 20px;
-  background-color: orange;
+.standard-btn {
+  border: 0px;
+}
+.standard-btn:active {
+  background-color: lightgrey;
 }
 
+/* Settings */
+
+.settings-container-title-and-x {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-container {
+  border: 1px solid rgb(177, 177, 177);
+}
+
+.setting-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-bottom: 10px;
+  width: 240px;
+  border: 1px solid rgb(163, 160, 160);
+}
+
+.setting-title {
+  margin-right: 5px;
+}
+
+.setting-value {
+  width: 170px;
+  border: 0px;
+}
+.standard-settings-font-size-and-type {
+  font-family: "Heebo";
+  font-size: 18px;
+}
+.setting-btn {
+  width: 100%;
+}
+
+.settings-hidden {
+  visibility: hidden;
+  height: 0;
+  transition: 1s height;
+  margin: 0;
+  border: 0;
+}
+
+/* Timers  */
 .timers-container {
-  background-color: gray;
+  border: 1px solid rgb(177, 177, 177);
 }
 
 .timers-sub-container {
@@ -134,11 +186,10 @@ body {
 }
 
 .timer {
-  font-family: "Heebo";
-  font-size: 20px;
   position: relative;
   width: 240px;
   margin: 3px;
+  border: 1px solid rgb(175, 175, 175);
 }
 
 .timer-information {
@@ -150,7 +201,6 @@ body {
   justify-content: space-between;
   width: 100%;
   height: 35px;
-  background-color: lightgray;
 }
 
 .timer-button-overlay {
@@ -170,9 +220,7 @@ body {
 
 .timer-start-stop-btn {
   visibility: hidden;
-  font-family: "Heebo";
   width: 80px;
-  font-size: 20px;
 }
 .timer-settings-btn {
   visibility: hidden;
@@ -181,12 +229,9 @@ body {
 /* new timer   */
 
 .temporary-timer-box {
-  font-family: "Heebo";
-  font-size: 20px;
   position: relative;
   width: 240px;
   margin: 3px;
-  background-color: teal;
 }
 
 .new-timer-buttons-container {
@@ -196,8 +241,6 @@ body {
 
 .timer-create-btn,
 .timer-cancel-btn {
-  font-family: "Heebo";
-  font-size: 20px;
   width: 100%;
 }
 
@@ -205,13 +248,9 @@ body {
   width: 240px;
   height: 35px;
   margin: 3px;
-  font-size: 20px;
-  font-family: "Heebo";
 }
 
 .new-timer-name {
-  font-size: 20px;
-  font-family: "Heebo";
   z-index: 1;
-  width: 240px;
+  width: 232px;
 }

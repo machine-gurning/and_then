@@ -37,7 +37,110 @@
           <div class="clock-container sidebar-sub-containers">
               <div class="live-time">00:00:00</div>
           </div>
-          <div class="settings-container sidebar-sub-containers"></div>
+          <div class="settings  general-settings-element settings-container sidebar-sub-containers  settings-hidden">
+            <div class="settings  general-settings-element settings-container-title-and-x  settings-hidden">
+              <div class="settings  general-settings-element settings-container-title standard-settings-font-size-and-type settings-hidden">Timer settings</div>
+              <button class="settings  general-settings-element settings-container-close-button standard-btn "> <i class="settings  fas fa-times settings-hidden general-settings-element "></i></button>
+            </div>
+            
+            
+<div class = "settings timer-settings settings-inner-container">
+    <!-- 
+    Contains all settings to do with timer, including renaming the timer, deleting the timer, changing the colour of the timer 
+  -->
+ 
+
+  <div class="settings setting-container timer-setting-title timer-settings settings-hidden">
+    <!-- Single setting block -->
+    <div class="settings setting-title timer-settings standard-settings-font-size-and-type settings-hidden">Name
+    </div>
+    <input
+    class="settings setting-value  standard-settings-font-size-and-type timer-settings settings-hidden"
+    type="text"
+    placeholder="wasting time"
+  />
+  </div>
+  <div class="settings setting-container timer-setting-colour timer-settings settings-hidden">
+    <!-- Single setting block -->
+    <div class="settings setting-title  timer-settings standard-settings-font-size-and-type settings-hidden">Colour
+    </div>
+    <input
+    class="settings setting-value  standard-settings-font-size-and-type timer-settings settings-hidden"
+    type="text"
+    placeholder="Orange"
+  />
+  </div>
+
+  <div class="settings setting-container timer-setting-delete-timer-button-container timer-settings settings-hidden"> 
+
+  <button class="settings setting-btn timer-setting-delete-timer-button timer-settings standard-settings-font-size-and-type standard-btn settings-hidden">Delete timer</button>
+</div>
+
+      </div>
+
+      <div class = "settings timeblock-settings settings-inner-container settings-hidden">
+        <!-- 
+          Contains all settings to do with the time block that has been selected, including  
+        -->
+        <div class="settings setting-container timeblock-settings timeblock-category settings-hidden">
+          <!-- Single setting block -->
+          <div class="settings setting-title  timeblock-settings  standard-settings-font-size-and-type settings-hidden">Timer
+          </div>
+
+          <input
+    class="settings setting-value  standard-settings-font-size-and-type timeblock-settings settings-hidden"
+    type="text"
+    placeholder="Category"
+  />
+</div>
+
+        <div class="settings setting-container timeblock-settings timeblock-start-time settings-hidden">
+          <!-- Single setting block -->
+          <div class="settings setting-title  timeblock-settings standard-settings-font-size-and-type settings-hidden">Start
+          </div>
+
+          <input
+    class="settings setting-value  timeblock-settings standard-settings-font-size-and-type settings-hidden"
+    type="text"
+    placeholder="00:00:00"
+  />
+
+ 
+        </div>
+        <div class="settings setting-container timeblock-settings timeblock-end-time settings-hidden">
+          <!-- Single setting block -->
+          <div class="settings setting-title  timeblock-settings standard-settings-font-size-and-type settings-hidden">End
+          </div>
+          <input
+          class="settings setting-value  timeblock-settings standard-settings-font-size-and-type settings-hidden"
+          type="text"
+          placeholder="00:00:00"
+        />
+      
+       
+        </div>
+
+        <div class="settings setting-container timeblock-setting-delete-timeblock-button-container timeblock-settings settings-hidden"> 
+
+        <button class="settings setting-btn timeblock-settings timeblock-setting-delete-timeblock-button  standard-settings-font-size-and-type standard-btn settings-hidden">Delete timeblock</button>
+      </div>
+
+
+      </div>
+
+      <div class = "settings general-settings settings-inner-container settings-hidden">
+        <!-- 
+          Contains all settings to do with the app in general including 
+        - Time-zone settings 
+        - Start and end of day partition settings 
+        - Account settings? 
+       -->
+      </div>
+    </div>
+
+
+
+          
           <div class="timers-container sidebar-sub-containers">
             <div class="timers-sub-container">
               <!-- single timer -->
@@ -47,8 +150,8 @@
                   <div class="timer-time">00:00:00</div>
                 </div>
                 <div class="timer-button-overlay">
-                  <button class="timer-start-stop-btn">start</button>
-                  <button class="timer-settings-btn">
+                  <button class="timer-start-stop-btn standard-btn">start</button>
+                  <button class="timer-settings-btn standard-btn">
                     <i class="fas fa-cog"></i>
                   </button>
                 </div>
@@ -59,20 +162,21 @@
                   <div class="timer-time">00:00:00</div>
                 </div>
                 <div class="timer-button-overlay">
-                  <button class="timer-start-stop-btn">start</button>
-                  <button class="timer-settings-btn">
+                  <button class="timer-start-stop-btn standard-btn standard-settings-font-size-and-type">start</button>
+                  <button class="timer-settings-btn standard-btn standard-settings-font-size-and-type">
                     <i class="fas fa-cog"></i>
                   </button>
                 </div>
               </div>
 
               </div> 
-              <button class="new-timer-btn">new timer</button>
+              <button class="new-timer-btn standard-btn standard-settings-font-size-and-type">new timer</button>
 
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
     <script src="./app.js" type="module"></script>
   </body>

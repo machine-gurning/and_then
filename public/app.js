@@ -2,13 +2,14 @@ import getElement from "./utilities/getElement.js";
 import "./timer_functions/addNewTimer.js";
 import "./timer_functions/clock.js";
 import "./timer_functions/stopwatchController.js";
+import "./timer_functions/settings.js";
 import getTimeBlocks from "./data_functions/getData.js";
 import interpretTimeblocks from "./data_functions/interpretTimeblocks.js";
 import {
   showAndScaleTimeblocks,
   illustrateTimeblocks,
 } from "./graphical_functions/visualiseTimeblocks.js";
-
+import "./timer_functions/manageTimers.js";
 import setUpSidebar from "./timer_functions/setUpSidebar.js";
 
 async function init() {
