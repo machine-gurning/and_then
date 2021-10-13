@@ -1,6 +1,7 @@
 import getElement from "../utilities/getElement.js";
-import { showTimerSettingsEventListener } from "./settings.js";
-import startStopEventListener from "./stopwatchController.js";
+import { returnRandomColourNotUsed } from "../utilities/returnRandomColour.js";
+import createElementWithClasses from "../utilities/createElementWithClasses.js";
+import createNewTimerElementForSidebar from "./createNewTimerElementForSidebar.js";
 
 const newTimerBtn = getElement(".new-timer-btn");
 const timerContainer = getElement(".timers-sub-container");
@@ -28,13 +29,14 @@ const addNewTimer = function () {
   const timerCreateBtn = getElement(".timer-create-btn");
   const timerCancelBtn = getElement(".timer-cancel-btn");
 
-  console.log(timerContainer);
-
   // Done clicked -- add new timer
   timerCreateBtn.addEventListener("click", () => {
     // Extract timer name
     const timerName = getElement(".new-timer-name").value;
     const timerID = makeTimerID(timerName);
+
+    // Create timer's colour
+    const timerColour = returnRandomColourNotUsed();
 
     // TODO ensure no identical class names -- reject if so
 
@@ -42,25 +44,24 @@ const addNewTimer = function () {
     timerContainer.removeChild(timerContainer.lastElementChild);
 
     // Add new timer
-    const newTimerHTML = `<div class="timer" id="${timerID}">
-      <div class="timer-information">
-        <div class="timer-title standard-settings-font-size-and-type">${timerName}</div>
-        <div class="timer-time standard-settings-font-size-and-type">00:00:00</div>
-      </div>
-      <div class="timer-button-overlay">
-        <button class="timer-start-stop-btn standard-btn standard-settings-font-size-and-type">start</button>
-        <button class="timer-settings-btn standard-btn standard-settings-font-size-and-type">
-          <i class="fas fa-cog"></i>
-        </button>
-      </div>
-    </div>`;
-    timerContainer.insertAdjacentHTML("beforeend", newTimerHTML);
+
+    const newTimer = createNewTimerElementForSidebar(
+      timerID,
+      timerName,
+      timerColour
+    );
+    timerContainer.appendChild(newTimer);
 
     // Add event listeners
-    const newTimer = timerContainer.lastElementChild;
-    const newTimerButton = newTimer.querySelector(".timer-start-stop-btn");
-    startStopEventListener(newTimerButton);
-    showTimerSettingsEventListener(newTimer);
+    // const newTimer = timerContainer.lastElementChild;
+    // const newTimerButton = newTimer.querySelector(".timer-start-stop-btn");
+    // startStopEventListener(newTimerButton);
+    // showTimerSettingsEventListener(newTimer);
+
+    // Colour the timer
+    console.log(timerColour);
+    console.log(newTimer.querySelector(".timer-information"));
+    newTimer.style.backgroundColor = "#" + timerColour;
   });
 
   timerCancelBtn.addEventListener("click", () => {

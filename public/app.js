@@ -3,6 +3,7 @@ import "./timer_functions/addNewTimer.js";
 import "./timer_functions/clock.js";
 import "./timer_functions/stopwatchController.js";
 import "./timer_functions/settings.js";
+import "./timer_functions/setupClickEvents.js"; // makes click events on start stop and cog buttons
 import getTimeBlocks from "./data_functions/getData.js";
 import interpretTimeblocks from "./data_functions/interpretTimeblocks.js";
 import {

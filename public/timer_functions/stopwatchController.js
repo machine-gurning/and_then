@@ -1,69 +1,56 @@
 import getElement from "../utilities/getElement.js";
 import { timer } from "./stopwatch.js";
 
-let startStopButtons = [...document.querySelectorAll(".timer-start-stop-btn")];
-
 function startStopEventListener(startStopButton) {
-  startStopButton.addEventListener("click", function (e) {
-    const thisTimer = e.target.parentElement.parentElement;
-    const thisTimerId = thisTimer.id;
+  const thisTimer = startStopButton.parentElement.parentElement;
+  const thisTimerId = thisTimer.id;
 
-    const thisTimerCategoryNice =
-      thisTimer.querySelector(".timer-title").innerText;
-    const thisTimerColour = "red"; // TODO
+  const thisTimerCategoryNice =
+    thisTimer.querySelector(".timer-title").innerText;
+  const thisTimerColour = thisTimer.getAttribute("colour"); // TODO
 
-    // Is a timer currently running? Is THIS timer currently running?
-    let timerIsRunning = false;
-    let thisTimerIsRunning = false;
-    let runningTimerId;
-    let runningTimerCategoryNice;
-    let runningTimerColor;
-    let runningTimer;
+  // Is a timer currently running? Is THIS timer currently running?
+  let timerIsRunning = false;
+  let thisTimerIsRunning = false;
+  let runningTimerId;
+  let runningTimerCategoryNice;
+  let runningTimerColour;
+  let runningTimer;
 
-    if ([...document.querySelectorAll(".visualise-time-here")].length > 0) {
-      timerIsRunning = true;
+  if ([...document.querySelectorAll(".visualise-time-here")].length > 0) {
+    timerIsRunning = true;
 
-      // Which timer?
-      runningTimer = getElement(".visualise-time-here").parentElement
-        .parentElement;
-      runningTimerId = runningTimer.id;
-      runningTimerCategoryNice =
-        runningTimer.querySelector(".timer-title").innerText;
-      runningTimerColor = "red"; // TODO
-    }
-    if (thisTimerId === runningTimerId) {
-      thisTimerIsRunning = true;
-    }
+    // Which timer?
+    runningTimer = getElement(".visualise-time-here").parentElement
+      .parentElement;
+    runningTimerId = runningTimer.id;
+    runningTimerCategoryNice =
+      runningTimer.querySelector(".timer-title").innerText;
+    runningTimerColour = runningTimer.getAttribute("colour"); // TODO
+  }
+  if (thisTimerId === runningTimerId) {
+    thisTimerIsRunning = true;
+  }
 
-    // Decide what to do
-    if (!timerIsRunning) {
-      // No timer running, start timer
-      console.log("no timer running, start this timer");
-      vizcontroller("start", thisTimerId);
-      timer("start", thisTimerId, thisTimerCategoryNice, thisTimerColour);
-    } else if (thisTimerIsRunning) {
-      // This timer running, stop timer
-      vizcontroller("stop", thisTimerId);
-      console.log(`stopping ${thisTimerId}`);
-      timer("stop", thisTimerId, thisTimerCategoryNice, thisTimerColour);
-    } else if (!thisTimerIsRunning) {
-      // Other timer running, stop other timer, start this timer
-      console.log(`stopping ${runningTimerId}, starting ${thisTimerId}`);
-      vizcontroller("start", thisTimerId);
-      timer(
-        "stop",
-        runningTimerId,
-        runningTimerCategoryNice,
-        runningTimerColour
-      );
-      timer("start", thisTimerId), thisTimerCategoryNice, thisTimerColour;
-    }
-  });
+  // Decide what to do
+  if (!timerIsRunning) {
+    // No timer running, start timer
+    console.log("no timer running, start this timer");
+    vizcontroller("start", thisTimerId);
+    timer("start", thisTimerId, thisTimerCategoryNice, thisTimerColour);
+  } else if (thisTimerIsRunning) {
+    // This timer running, stop timer
+    vizcontroller("stop", thisTimerId);
+    console.log(`stopping ${thisTimerId}`);
+    timer("stop", thisTimerId, thisTimerCategoryNice, thisTimerColour);
+  } else if (!thisTimerIsRunning) {
+    // Other timer running, stop other timer, start this timer
+    console.log(`stopping ${runningTimerId}, starting ${thisTimerId}`);
+    vizcontroller("start", thisTimerId);
+    timer("stop", runningTimerId, runningTimerCategoryNice, runningTimerColour);
+    timer("start", thisTimerId), thisTimerCategoryNice, thisTimerColour;
+  }
 }
-
-startStopButtons.forEach((startStopButton) => {
-  startStopEventListener(startStopButton);
-});
 
 /*
 For each startStop button 
@@ -89,7 +76,6 @@ For each startStop button
 function vizcontroller(action, timerID) {
   const allTimers = [...document.querySelectorAll(".timer-time")];
   const allButtons = [...document.querySelectorAll(".timer-start-stop-btn")];
-  console.log(`All elements: `, allTimers);
   const thisTimer = document.getElementById(timerID);
   const thisTimerDisplay = thisTimer.querySelector(".timer-time");
   const thisTimerButton = thisTimer.querySelector(".timer-start-stop-btn");

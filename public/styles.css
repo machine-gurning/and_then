@@ -126,6 +126,10 @@ body {
   background-color: lightgrey;
 }
 
+.do-not-register-click-events {
+  pointer-events: none;
+}
+
 /* Settings */
 
 .settings-container-title-and-x {
@@ -172,7 +176,6 @@ body {
   height: 0;
   transition: 1s height;
   margin: 0;
-  border: 0;
 }
 
 /* Timers  */

@@ -3,14 +3,6 @@
 import getElement from "../utilities/getElement.js";
 import { makeTimerID } from "./addNewTimer.js";
 
-function showTimerSettingsEventListener(timerCard) {
-  const timerSettingsButton = timerCard.querySelector(".timer-settings-btn");
-  const id = timerCard.id;
-  timerSettingsButton.addEventListener("click", () => {
-    showTimerSettings(id);
-  });
-}
-
 // Function that is executed when the user clicks the cog on one of the timers
 function showTimerSettings(categoryID) {
   // Find the category information by searching within the cards
@@ -30,8 +22,6 @@ function showTimerSettings(categoryID) {
   const timerSettingsColour = document
     .querySelector(".timer-setting-colour")
     .querySelector(".setting-value");
-
-  console.log(timerSettingsTitle);
 
   // Insert the information into the appropriate locations
   timerSettingsTitle.placeholder = timerCategory;
@@ -63,7 +53,6 @@ function showTimerSettings(categoryID) {
   });
 
   // - Delete category
-  // TODO
 
   // Show the elements by removing the hidden class
   allTimerSettingsElements.forEach((setting) => {
@@ -107,4 +96,4 @@ function updateCategoryColourUIAndData(categoryID, newColour) {
 
 function showTimeblockSettings() {}
 
-export { showTimerSettingsEventListener };
+export { showTimerSettings };
