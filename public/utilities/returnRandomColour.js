@@ -8,7 +8,8 @@ function returnRandomColour(colourList) {
 // Returns a list of colours not yet used
 function returnListOfColoursNotUsed() {
   // Extract all colours in use
-  const allCards = [...document.querySelectorAll("timer")];
+  let allCards = [...document.querySelectorAll(".timer")];
+  console.log(allCards);
 
   let activeColours = [];
 
@@ -52,4 +53,4 @@ function returnRandomColourNotUsed() {
   return returnRandomColour(colourList);
 }
 
-export { returnListOfColoursNotUsed, returnRandomColourNotUsed };
+export { returnRandomColourNotUsed };

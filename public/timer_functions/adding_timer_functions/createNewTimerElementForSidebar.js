@@ -1,4 +1,4 @@
-import createElementWithClasses from "../utilities/createElementWithClasses.js";
+import createElementWithClasses from "../../utilities/createElementWithClasses.js";
 
 function createNewTimerElementForSidebar(id, name, colour) {
   // Create timer information component

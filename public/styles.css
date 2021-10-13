@@ -250,10 +250,20 @@ body {
 .new-timer-btn {
   width: 240px;
   height: 35px;
-  margin: 3px;
+  margin-top: 3px;
 }
 
 .new-timer-name {
   z-index: 1;
   width: 232px;
+}
+
+.new-timer-buttons-hidden {
+  height: 0;
+  width: 0;
+  margin: 0px;
+  padding: 0;
+  border: 0;
+  visibility: hidden;
+  pointer-events: none;
 }

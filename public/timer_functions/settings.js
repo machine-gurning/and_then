@@ -1,7 +1,6 @@
 // For all settings-container related function
 
 import getElement from "../utilities/getElement.js";
-import { makeTimerID } from "./addNewTimer.js";
 
 // Function that is executed when the user clicks the cog on one of the timers
 function showTimerSettings(categoryID) {

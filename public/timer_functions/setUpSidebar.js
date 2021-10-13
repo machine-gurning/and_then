@@ -1,5 +1,5 @@
 import getElement from "../utilities/getElement.js";
-import createNewTimerElementForSidebar from "./createNewTimerElementForSidebar.js";
+import createNewTimerElementForSidebar from "./adding_timer_functions/createNewTimerElementForSidebar.js";
 
 // Takes the database, finds unique categories, puts them in the sidebar
 function setUpSidebar(expandedData) {
@@ -14,6 +14,7 @@ function setUpSidebar(expandedData) {
       category.categoryPresentable,
       category.colour
     );
+    newCard.style.backgroundColor = "#" + category.colour;
     timersSubContainer.appendChild(newCard);
   });
 }
